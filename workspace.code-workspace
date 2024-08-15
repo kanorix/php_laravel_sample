@@ -1,0 +1,36 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "backend"
+    },
+    {
+      "path": "frontend"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "backend/**": true,
+      "frontend/**": true,
+      "**/node_modules/**": true,
+      "**/.next/**": true,
+      "**/.yarn/**": true
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+      "editor.tabSize": 2,
+      "editor.insertSpaces": true,
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+      "editor.tabSize": 2,
+      "editor.insertSpaces": true
+    },
+    "typescript.preferences.importModuleSpecifier": "non-relative"
+  }
+}

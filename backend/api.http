@@ -1,0 +1,31 @@
+###
+# @name csrfCookie
+GET http://127.0.0.1:8000/sanctum/csrf-cookie
+Content-Type: application/json
+Accept: application/json
+
+###
+GET http://127.0.0.1:8000/api/user
+Content-Type: application/json
+Accept: application/json
+Referer: http://127.0.0.1:8000
+
+### login
+POST http://127.0.0.1:8000/login
+Content-Type: application/json
+Accept: application/json
+Referer: http://127.0.0.1:8000
+# Origin: 127.0.0.1:8000
+# X-XSRF-TOKEN: {{Cookie: XSRF-TOKEN}}
+
+{
+    "email": "demo1@example.com",
+    "password": "password"
+}
+
+### logout
+POST http://127.0.0.1:8000/logout
+Content-Type: application/json
+Accept: application/json
+Referer: http://127.0.0.1:8000
+# X-XSRF-TOKEN: eyJpdiI6Ijg1aHNNbzZ1L2oxK3dBV1kvRGZ2Z2c9PSIsInZhbHVlIjoiWmEzMjhzbTBwUUhjYXhVQWlYRmRLaWwxREQvQmJsZVRGMUxyNUl5amxTUlRSNXhxR2V4aXhKYk1EcWd0c0NyQWV6R2JEMkQvT2tmR0dkUDdwVkJ4ZE9pbnN6RHRKUjd5anlLQmF3RUs0M2FEa0N0V0lJSkZKZC91cnMvK2cweTciLCJtYWMiOiJjODA1MjI0OTE4MzBhZjlhNDk0OTQ4ZTc0NjkxNjUxY2E5ZGZhMzU5MDMxNjE3MWEyZjBiOGZkNGUyZDI3NzMwIiwidGFnIjoiIn0

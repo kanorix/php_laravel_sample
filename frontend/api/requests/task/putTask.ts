@@ -7,5 +7,8 @@ export const putTask = ({
 }: {
   task: Partial<TaskInput>;
 }): Promise<TaskInput> => {
-  return client.put(`/api/tasks/${task.id}`, toSnakeCase(task));
+  return client.put(`/api/tasks/${task.id}`, {
+    ...task,
+    scheduled_time: task.scheduledTime,
+  });
 };

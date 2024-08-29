@@ -39,7 +39,7 @@ export default function TaskRow({ task }: TaskRowProps) {
     <Table.Tr key={task.id}>
       <Table.Td>{task.id}</Table.Td>
       <Table.Td>
-        <Anchor size="sm" href={`/tasks/${task.id}`} target="_blank">
+        <Anchor size="sm" href={`/tasks/${task.id}`}>
           {truncate(task.title, 20)}
         </Anchor>
       </Table.Td>

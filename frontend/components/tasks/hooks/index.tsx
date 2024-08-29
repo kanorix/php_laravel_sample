@@ -1,6 +1,6 @@
 import client from "@/api/client";
 import { Task, TaskInput, TaskResult } from "@/components/tasks/types";
-import { SnakeToCamel, toCamelCase } from "@/utils/snakeToCamel";
+import { toCamelCase } from "@/utils/snakeToCamel";
 import useSWR from "swr";
 
 const fetcher = (url: string) => client.get(url).then((res) => res.data);

@@ -21,13 +21,13 @@ export default function TaskInputPage({ params }: { params: { id: number } }) {
     console.log("onDelete");
     setLoading(true);
     deleteTask({ task: form })
-      .catch(() => {
-        toast.error("削除に失敗しました。");
-        setLoading(false);
-      })
       .then(() => {
         router.push("/dashboard");
         toast("削除できました！");
+      })
+      .catch(() => {
+        toast.error("削除に失敗しました。");
+        setLoading(false);
       });
   };
 

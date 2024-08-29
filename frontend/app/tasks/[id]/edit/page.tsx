@@ -23,13 +23,13 @@ export default function TaskInputPage({ params }: { params: { id: number } }) {
     console.log(form);
     setLoading(true);
     putTask({ task: form })
-      .catch(() => {
-        toast.error("保存に失敗しました。");
-        setLoading(false);
-      })
       .then(() => {
         router.push("/dashboard");
         toast("作成できました！");
+      })
+      .catch(() => {
+        toast.error("保存に失敗しました。");
+        setLoading(false);
       });
   };
 

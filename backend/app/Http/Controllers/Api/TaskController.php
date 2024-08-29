@@ -26,11 +26,10 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         // safeが使えない、、Method Illuminate\\Http\\Request::safe does not exist.
-        $validated = $request->only(['title', 'description', 'scheduled_time', 'deadline']);
+        $validated = $request->only(['title', 'status', 'description', 'scheduled_time', 'deadline']);
         // $validated = $request->safe()->only(['title', 'description', 'scheduled_time', 'deadline']);
         $task = Task::create([
             ...$validated,
-            'status' => 0,
             'user_id' => 1,
         ]);
         return $task;
@@ -49,7 +48,7 @@ class TaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $validated = $request->only(['title', 'description', 'scheduled_time', 'deadline']);
+        $validated = $request->only(['title', 'status', 'description', 'scheduled_time', 'deadline']);
         // $validated = $request->safe()->only(['title', 'description', 'scheduled_time', 'deadline']);
         $task = Task::where('id', $id)
             ->update([

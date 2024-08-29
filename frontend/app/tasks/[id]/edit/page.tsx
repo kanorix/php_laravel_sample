@@ -20,6 +20,7 @@ export default function TaskInputPage({ params }: { params: { id: number } }) {
 
   const onSubmit = (form: TaskInput) => {
     console.log("onSubmit");
+    console.log(form);
     setLoading(true);
     putTask({ task: form })
       .catch(() => {
@@ -33,7 +34,7 @@ export default function TaskInputPage({ params }: { params: { id: number } }) {
   };
 
   return (
-    <Stack justify="center" h="80vh">
+    <Stack justify="center" h="100%">
       <TaskCard
         task={data}
         onSubmit={onSubmit}

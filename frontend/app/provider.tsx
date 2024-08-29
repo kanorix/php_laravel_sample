@@ -11,15 +11,13 @@ const Providers = ({ children }: { children: ReactNode }) => (
     <MantineProvider theme={theme}>
       {children}
       <ToastContainer
-        position="bottom-right"
+        position="bottom-left"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
         rtl={false}
-        pauseOnFocusLoss
         draggable
-        pauseOnHover
         theme="light"
         transition={Bounce}
       />

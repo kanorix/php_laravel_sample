@@ -1,20 +1,9 @@
 import client from "@/api/client";
-import { TaskInput } from "@/components/tasks/types";
+import { Task, TaskInput, TaskResult } from "@/components/tasks/types";
 import { SnakeToCamel, toCamelCase } from "@/utils/snakeToCamel";
 import useSWR from "swr";
 
 const fetcher = (url: string) => client.get(url).then((res) => res.data);
-
-export type Task = {
-  id: number;
-  // user_id: number;
-  title: string;
-  description: string;
-  status: number;
-  scheduled_time: number;
-  deadline: Date | null;
-  tags: string[];
-};
 
 const initialTask: TaskInput = {
   title: "",
@@ -26,7 +15,10 @@ const initialTask: TaskInput = {
 };
 
 export const useTasks = () => {
-  const { data, isLoading } = useSWR<Task[]>("/api/tasks", fetcher);
+  const { data, isLoading, error } = useSWR<TaskResult[]>(
+    "/api/tasks",
+    fetcher
+  );
   return {
     data: data
       ? data.map(toCamelCase).map((e) => {
@@ -34,6 +26,7 @@ export const useTasks = () => {
         })
       : undefined,
     isLoading,
+    error,
   };
 };
 
@@ -48,10 +41,10 @@ export const useTask = ({
 }: {
   id: number;
 }): {
-  data?: SnakeToCamel<Task>;
+  data?: TaskInput;
   isLoading: boolean;
 } => {
-  const { data, isLoading } = useSWR<Task>(`/api/tasks/${id}`, fetcher);
+  const { data, isLoading } = useSWR<TaskResult>(`/api/tasks/${id}`, fetcher);
   if (!data) {
     return {
       data: undefined,
@@ -68,7 +61,7 @@ export const useTask = ({
     deadline: cameledTask.deadline ? new Date(cameledTask.deadline) : null,
   };
   return {
-    data: task,
+    data: task as TaskInput,
     isLoading,
   };
 };

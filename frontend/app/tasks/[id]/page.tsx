@@ -32,7 +32,7 @@ export default function TaskInputPage({ params }: { params: { id: number } }) {
   };
 
   return (
-    <Stack justify="center" h="80vh">
+    <Stack justify="center" h="100%">
       <TaskCard
         task={data}
         onDelete={onDelete}

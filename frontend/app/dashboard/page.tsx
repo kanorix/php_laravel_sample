@@ -2,19 +2,21 @@
 import { TaskInput } from "@/components/tasks/types";
 import { useTasks } from "@/components/tasks/hooks";
 import {
-  Anchor,
   Button,
-  LoadingOverlay,
   Table,
   Text,
-  Box,
   Stack,
   Flex,
+  ScrollArea,
+  Center,
+  Title,
+  Box,
 } from "@mantine/core";
 import { IconPlus } from "@tabler/icons-react";
 import axios from "axios";
-import dayjs from "dayjs";
-import { Bounce, toast } from "react-toastify";
+import TaskRow from "@/components/tasks/TaskRow";
+import TaskHeader from "@/components/tasks/TaskHeader";
+import Loading from "@/components/common/Loading";
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
@@ -23,53 +25,49 @@ type TaskCardProps = {
 };
 
 export default function DashboradPage() {
-  const { data, isLoading } = useTasks();
-
-  const rows = data?.map((element) => (
-    <Table.Tr key={element.id}>
-      <Table.Td>{element.id}</Table.Td>
-      <Table.Td>
-        <Anchor size="sm" href={`/tasks/${element.id}`} target="_blank">
-          {element.title}
-        </Anchor>
-      </Table.Td>
-      <Table.Td>
-        <Box w={300}>
-          <Text truncate="end">{element.description}</Text>
-        </Box>
-      </Table.Td>
-      <Table.Td>{element.scheduledTime}</Table.Td>
-      <Table.Td>
-        {element.deadline ? dayjs(element.deadline).format("YYYY/MM/DD") : ""}
-      </Table.Td>
-    </Table.Tr>
-  ));
-
-  console.log(rows?.length);
+  const { data, isLoading, error } = useTasks();
 
   if (isLoading) {
-    return <LoadingOverlay></LoadingOverlay>;
+    return <Loading />;
   }
+
+  if (error) {
+    return (
+      <Flex direction="column" align="center">
+        <Box>
+          <Title>エラーが発生しました</Title>
+        </Box>
+        <Box>{error instanceof Error && error.message}</Box>
+        <Box>{!(error instanceof Error) && JSON.stringify(error)}</Box>
+      </Flex>
+    );
+  }
+
+  const rows = data?.map((element) => (
+    <TaskRow key={element.id} task={element} />
+  ));
+
   return (
     <Stack>
-      <Table stickyHeader>
-        <Table.Thead>
-          <Table.Tr>
-            <Table.Th>ID</Table.Th>
-            <Table.Th>タスク名</Table.Th>
-            <Table.Th>内容</Table.Th>
-            <Table.Th>時間</Table.Th>
-            <Table.Th>期限</Table.Th>
-          </Table.Tr>
-        </Table.Thead>
-        <Table.Tbody>{rows}</Table.Tbody>
-        <Table.Caption></Table.Caption>
-      </Table>
-      <Flex mt="lg" mx="xs" justify="flex-end" align="center">
+      <Flex mx="xs" justify="flex-end" align="center">
         <Button component="a" href="/tasks/new" rightSection={<IconPlus />}>
           新規追加する
         </Button>
       </Flex>
+      {!data?.length || (
+        <ScrollArea>
+          <Table stickyHeader>
+            <TaskHeader />
+            <Table.Tbody>{rows}</Table.Tbody>
+            <Table.Caption></Table.Caption>
+          </Table>
+        </ScrollArea>
+      )}
+      {!!data?.length || (
+        <Center>
+          <Text>「新規作成」から新しいタスクを作成できます！</Text>
+        </Center>
+      )}
     </Stack>
   );
 }

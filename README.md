@@ -53,8 +53,13 @@ yarn install//
 ```
 
 https://qiita.com/hikagami/items/da055860df931c30820b
-
-
 https://qiita.com/niisan-tokyo/items/9c799989cb535489f201
+
+```
 php artisan make:model Task -m
 php artisan make:controller Api/TaskController --api
+```
+
+## 画面キャプチャ
+
+[Online Video Converter Aug 30 (1).webm](https://github.com/user-attachments/assets/e38ca5a4-1845-4b39-afc4-870c2a672142)

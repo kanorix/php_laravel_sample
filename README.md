@@ -44,6 +44,9 @@ $ php artisan serve
 $ yarn run dev
 ```
 
+## 仕様書（メンテしてない）
+
+- [仕様書](docs/specification.md)
 
 ## 画面キャプチャ
 
